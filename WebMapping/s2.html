@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0 }
+            #carteId{ height: 100% }
+        </style>
+        <!-- Importer l'api google map -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            function initialize() {
+                var mapOptions = {
+                    // Définit la longitude et la latitude à afficher
+                    center: new google.maps.LatLng(-18.397, 45.644),
+                    // Le niveau de zoom utilisée sur la carte
+                    zoom: 6,
+                    // Met le type de la carte en SATELLITE
+                    mapTypeId:google.maps.MapTypeId.SATELLITE
+                };
+
+                var carte = new google.maps.Map(document.getElementById("carteId"), mapOptions);
+                // Voici la location du marqueur à poser
+                var location = new google.maps.LatLng(-18.397, 45.644);
+                // Ajoute un marqueur à la carte
+                var marker = new google.maps.Marker({
+                    //Ajouter la location au marqueur
+                    position: location,
+                    //Nous permet de déplacer le marqueur ou en veut
+                    draggable: true,
+                    //La carte ou ajouter le marqueur				
+                    map: carte
+                });
+            }
+            // Après avoir loader la page, cette ligne de code ajoute un Event DomListener a la page
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+    </head>
+    <body>
+        <div id="carteId"/>
+    </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #carteId { height: 100% }
+    </style>
+    <!-- Importer l'API Google Maps -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        var data = [
+            { latitude: -18.9047419, longitude: 47.5242823, nom: "Analakely" } ,
+            { latitude: -18.9060890, longitude: 47.5199495, nom: "Shalimar Tsaralalana" } ,
+            { latitude: -18.9072507, longitude: 47.5228764, nom: "Sicam Analakely" } ,
+            { latitude: -18.9179852, longitude: 47.5220288, nom: "Anosy" } ,
+            { latitude: -18.9207350, longitude: 47.5214676, nom: "Anosy Firaisana" } ,
+            { latitude: -18.9316495, longitude: 47.5200011, nom: "Paraky Andrefan~Ambohijanahary" } ,
+            { latitude: -18.9352314, longitude: 47.5219488, nom: "Soanierana Descours" } ,
+            { latitude: -18.9414374, longitude: 47.5225814, nom: "Soanierana Sampananan` ny fasan` y karana" } ,
+            { latitude: -18.9443126, longitude: 47.5242950, nom: "Ankadimbahoaka" } ,
+            { latitude: -18.9497834, longitude: 47.5260761, nom: "Ankadimbahoaka Fasika" } ,
+            { latitude: -18.9526567, longitude: 47.5277439, nom: "Tanjombato Barrage" } ,
+            { latitude: -18.9544535, longitude: 47.5290210, nom: "Trent cinq (Tanjombato)" } ,
+            { latitude: -18.9578363, longitude: 47.5293348, nom: "Analamanga" } ,
+            { latitude: -18.9610782, longitude: 47.5298120, nom: "Ankady" } ,
+            { latitude: -18.9637659, longitude: 47.5296883, nom: "Magasin M" } ,
+            { latitude: -18.9677945, longitude: 47.5303391, nom: "Ambany Atsimo" } ,
+            { latitude: -18.9695683, longitude: 47.5297217, nom: "Sampanan` ny Tongarivo" } ,
+            { latitude: -18.9718186, longitude: 47.5304186, nom: "Malaza" } ,
+            { latitude: -18.9744234, longitude: 47.5319286, nom: "Pharmacie RN7" } ,
+            { latitude: -18.9770723, longitude: 47.5328424, nom: "Andoharanofotsy" } ,
+            { latitude: -18.9799726, longitude: 47.5330307, nom: "Pharmacie (--> Analakely)" } ,
+            { latitude: -18.9837562, longitude: 47.5327366, nom: "Boulangerie" } ,
+            { latitude: -18.9869865, longitude: 47.5323876, nom: "Galana (Ma Pizza)" } ,
+            { latitude: -18.9921864, longitude: 47.5329253, nom: "Mandrimena" } ,
+            { latitude: -18.9981810, longitude: 47.5359052, nom: "Fiadanamanga" }
+        ];
+        position = [];
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-18.986021, 47.532735),
+                zoom: 17,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            };
+            
+            var carte = new google.maps.Map(document.getElementById("carteId"), mapOptions);
+            
+            for (let i = 0; i < data.length; i++) {
+                addMarker(data[i], carte);
+                position.push(new google.maps.LatLng(data[i].latitude, data[i].longitude));
+            }
+            traceLigne(position, carte);
+        }
+        
+        function addMarker(data, map) {
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(data.latitude, data.longitude),
+                map: map,
+                icon: 'bus-stop1.png' 
+            });
+            
+            var infoWindow = new google.maps.InfoWindow({
+                content: data.nom
+            });
+            
+            infoWindow.open(map, marker);
+        }
+        
+        function traceLigne(stockage, map) {
+            var traceLigne = new google.maps.Polyline({
+                path: stockage,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+            
+            traceLigne.setMap(map);
+        }
+        
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+    <div id="carteId"></div>
+</body>
+</html>
